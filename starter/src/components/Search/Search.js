@@ -10,6 +10,9 @@ const Search = () => {
   const [shelfBooks, setShelfBooks] = useState({});
   const [books, setBooks] = useState([]);
 
+  /**
+   * Fetches all books in shelves to map the search results to thier shelves
+   */
   const getShelfBooks = async () => {
     setShelfBooks({});
     try {
@@ -33,7 +36,11 @@ const Search = () => {
     getShelfBooks();
   }, [])
 
+  /**
+   * Searches the books based on search string entered
+   */
   const searchBooks = async () => {
+    // Empty the books for re-render
     setBooks([]);
     try {
       if (search !== '') {
@@ -58,6 +65,11 @@ const Search = () => {
     }
   }
 
+  /**
+   * Updates book with newly selected bookshelf
+   * @param {object} updatedBook Book to be updated
+   * @param {string} shelf Destination shelf
+   */
   const updateBook = (updatedBook, shelf) => {
     const tempBooks = books;
     setBooks([]);
@@ -69,6 +81,7 @@ const Search = () => {
   }
 
   useEffect(() => {
+    // Debounce the search requests for 2 seconds
     const timer = setTimeout(() => {
       searchBooks(search);
     }, 2000);
@@ -84,6 +97,7 @@ const Search = () => {
         <div className="search-books-input-wrapper">
           <input
             type="text"
+            autoFocus
             placeholder="Search by title, author, or ISBN"
             onChange={event => setSearch(event.target.value)}
           />

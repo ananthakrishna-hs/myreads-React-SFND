@@ -2,6 +2,13 @@ import * as BooksAPI from "BooksAPI";
 
 const BookItem = ({ book, triggerUpdate }) => {
 
+  /**
+   * Updates the book with new shelf using `update` API
+   * @param {object} book Book object
+   * @param {string} targetShelf The destination shelf
+   * @description Updates the book with new shelf and emits the update
+   * for parent component to do necessary updates
+   */
   const moveBook = async (book, targetShelf) => {
     try {
       await BooksAPI.update(book, targetShelf);

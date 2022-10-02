@@ -9,6 +9,9 @@ import * as BooksAPI from "BooksAPI";
 const Home = () => {
   const [books, setBooks] = useState([]);
 
+  /**
+   * Fetches all books stacked in shelves
+   */
   const getBooks = async () => {
     try {
       const res = await BooksAPI.getAll();
@@ -23,8 +26,14 @@ const Home = () => {
     getBooks();
   }, [])
 
+  /**
+   * Updates book with newly selected bookshelf
+   * @param {object} updatedBook Book to be updated
+   * @param {string} shelf Destination shelf
+   */
   const updateBook = (updatedBook, shelf) => {
     const tempBooks = books;
+    // Empty the list for re-render
     setBooks([]);
     const index = tempBooks.findIndex(book => book.id === updatedBook.id);
     if (index !== -1) {

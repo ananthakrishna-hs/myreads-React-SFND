@@ -1,29 +1,16 @@
-import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
 import Home from "components/Home/Home";
-import * as BooksAPI from 'BooksAPI';
+import Search from "components/Search/Search";
 
 const App = () => {
-  const [books, setBooks] = useState([]);
-
-  const getBooks = async () => {
-    try {
-      const res = await BooksAPI.getAll();
-      setBooks(res);
-    } catch (err) {
-      console.error(err);
-      alert('Failed to get books');
-    }
-  }
-
-  useEffect(() => {
-    getBooks();
-  }, [])
-
   return (
     <div className="app">
-      <Home books={books} triggerUpdate={getBooks} /> 
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/search" element={<Search />} />
+      </Routes>
     </div>
   );
 }
